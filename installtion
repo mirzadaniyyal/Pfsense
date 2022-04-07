@@ -1,0 +1,29 @@
+PFSENSE Documentation
+PFsense installation in proxmox
+
+Create two VMs in proxmox without network adapters network adapters will be added After the creation of VMs.
+Download pfsense ISO file from their Official website.
+Load the pfsense ISO file in one VM.
+Load the windows file on second VM.
+Add another linux bridge adapter in node NT.
+Now add two adapters in pfsense machine / one adapter that will be working as LAN in pfsense.
+Add the second adapter in windows machine and uncheck the firewall option while adding the network adatper.
+Note: If you want to change the LAN IP you have to change the IP of network adapter to static in windows and add the IP you changed in PFsense subnet mask and same LAN IP as gateway and DNS server otherwise you won't be able to access Web Interface in windows after that open your Web Interface with New LAN address.
+
+After that go back to your network adapter IP configuration and change it to Dynamic and then Disable and Renable it.
+Install pfsense and windows in VMs
+pfsense will be taking one adapter as WAN and the other one as LAN you can change the LAN IP address by selecting option 2.
+When it will ask to enable DHCP server input "n".
+pfsense and windows will be installed in both VMs.
+PFsense configuration in Proxmox
+
+In windows VM open the web browser and login to your pfsense Web Interface with the LAN IP address by default it will be 192.168.1.1.
+Default user name is admin and default password is pfsense.
+Go back to the pfsense VM machine and select option 2 select everything same as before and enter y when it asks for DHCP server.
+It will ask if you want to enable DHCP server for WAN or LAN chose LAN
+Enter starting range and closing range of DHCP server addresses Press enter at the end
+Now in Web Interface go to services/dhcpserver/Lan
+Note: you will not be having an internet access unless you enable DHCP server in windows machine and add DNS server 8.8.8.8 your first DNS will be the LAN IP of Pfsense
+
+Add both DNS servers and save in Web Interface
+Now you have your network connection through Pfsense firewall.
